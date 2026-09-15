@@ -1,0 +1,23 @@
+services:
+  ms-goldenoddjobs-solicitudes:
+    build: ../ms-goldenoddjobs-solicitudes
+    ports:
+      - "8081:8081"
+    environment:
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL}
+      SUPABASE_DB_USER: ${SUPABASE_DB_USER}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD}
+      AWS_REGION: ${AWS_REGION}
+      COGNITO_USER_POOL_ID: ${COGNITO_USER_POOL_ID}
+      COGNITO_APP_CLIENT_ID: ${COGNITO_APP_CLIENT_ID}
+
+  ms-goldenoddjobs-usuarios:
+    build: ../ms-goldenoddjobs-usuarios
+    ports:
+      - "8082:8082"
+    environment:
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      COGNITO_USER_POOL_ID: ${COGNITO_USER_POOL_ID}
+      COGNITO_APP_CLIENT_ID: ${COGNITO_APP_CLIENT_ID}
