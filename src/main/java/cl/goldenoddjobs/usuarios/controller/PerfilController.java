@@ -20,7 +20,6 @@ public class PerfilController {
         this.perfilTable = perfilTable;
     }
 
-    // Endpoint compartido: accesible para cualquier rol autenticado
     @GetMapping("/usuarios/perfil")
     public ResponseEntity<Perfil> miPerfil(@AuthenticationPrincipal Jwt jwt) {
         Perfil perfil = perfilTable.getItem(Key.builder().partitionValue(jwt.getSubject()).build());
