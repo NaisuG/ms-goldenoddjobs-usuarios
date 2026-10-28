@@ -1,6 +1,6 @@
-package cl.goldenoddjobs.usuarios.config;
+package cl.goldenoddjobs.users.config;
 
-import cl.goldenoddjobs.usuarios.model.Perfil;
+import cl.goldenoddjobs.users.model.Profile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ public class DynamoDbConfig {
     }
 
     @Bean
-    public DynamoDbTable<Perfil> perfilTable(DynamoDbEnhancedClient enhancedClient) {
-        return enhancedClient.table("Perfil", TableSchema.fromBean(Perfil.class));
+    public DynamoDbTable<Profile> profileTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table("Perfil", TableSchema.fromBean(Profile.class));
     }
 }

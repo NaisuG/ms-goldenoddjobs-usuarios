@@ -1,6 +1,6 @@
-package cl.goldenoddjobs.usuarios.controller;
+package cl.goldenoddjobs.users.controller;
 
-import cl.goldenoddjobs.usuarios.dto.AsignarGrupoRequest;
+import cl.goldenoddjobs.users.dto.AssignGroupRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,27 +14,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
-public class RegistroController {
+public class RegistrationController {
 
-    private static final List<String> GRUPOS_VALIDOS = List.of("SOLICITANTE", "DESARROLLADOR");
+    private static final List<String> VALID_GROUPS = List.of("SOLICITANTE", "DESARROLLADOR");
 
     private final CognitoIdentityProviderClient cognitoClient;
 
     @Value("${cognito.user-pool-id}")
     private String userPoolId;
 
-    public RegistroController(CognitoIdentityProviderClient cognitoClient) {
+    public RegistrationController(CognitoIdentityProviderClient cognitoClient) {
         this.cognitoClient = cognitoClient;
     }
 
     @PostMapping("/asignar-grupo")
-    public ResponseEntity<Void> asignarGrupo(@RequestBody AsignarGrupoRequest request) {
-        String grupo = GRUPOS_VALIDOS.contains(request.getRol()) ? request.getRol() : "SOLICITANTE";
+    public ResponseEntity<Void> assignGroup(@RequestBody AssignGroupRequest request) {
+        String group = VALID_GROUPS.contains(request.getRole()) ? request.getRole() : "SOLICITANTE";
 
         cognitoClient.adminAddUserToGroup(AdminAddUserToGroupRequest.builder()
             .userPoolId(userPoolId)
             .username(request.getEmail())
-            .groupName(grupo)
+            .groupName(group)
             .build());
 
         return ResponseEntity.ok().build();
